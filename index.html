@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" href="css/element.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div id="rewardApp">
+    <el-tabs type="border-card" @tab-click="tabClick">
+        <el-tab-pane label="用户须知">
+            <template style="margin-top:10px">
+                <h3>一、跑腿运营须知：</h3>
+                <p>1.非高校公众号请到系统设置下配置您公众号对应的高校信息</p>
+                <p>2.关于订单通知，步骤一：关注官微《微涅科技》，步骤二：审核管理开通模板消息</p>
+                <p>3.关于前期推广，快递站点进行合作在发送快递短信时可添加短信内容（代取可关注xxx公众号）</p>
+                <p>4.关于佣金比例设置加群联系群主（温馨提醒：平台默认抽成10%，日订单量维持20+以上的可配置）</p>
+                <p>5.校园运营QQ群：198896490，投资意愿可联系：18883754124，定制有偿服务可加群联系管理员</p>
+                <p>6.免责申明：本平台只负责提供校园跑腿技术支持，任何运营所产生的责任由运营公众号自行负责并处理</p>
+                <p style="color: red">重要提醒：订阅号微信支付出现跨号支付问题，请将应用地址的二维码→配置到菜单上或者关键字回复二维码</p>
+                <h3>二、跑腿功能介绍</h3>
+                <p>7.订单管理可对订单查看、冻结、退款等操作</p>
+                <p>8.畅聊管理可对用户发送的畅聊信息进行冻结或激活管理</p>
+                <p>9.审核管理功能可对用户进行接单员认证，跑腿完成相应任务后获得酬金</p>
+                <p>10.系统配置可对应用名称、所属学校、跑腿费、banner图等进行自定义配置</p>
+
+                <!-- <p>9.赞助我们：主要用于服务器费用，短信费用，维护以及微信支付费率等成本</p>
+                <div>
+                    <img src="images/wechatPay.png" width="300px" height="300px" style="margin-left: 20px" />
+                    <img src="images/alipay.png" width="300px" height="300px" style="margin-left: 50px" />
+                </div> -->
+            </template>
+        </el-tab-pane>
+        <el-tab-pane label="体验版" name="experienceEdition">
+            <template style="margin-top:10px">
+                <el-container>
+                    <el-aside width="300px">
+                        <div class="left-box">
+                            <div class="phone-header">
+                                <img src="images/phone.png" alt="">
+                                <h3>公众号名称</h3>
+                            </div>
+                            <div class="phone-main">
+                                <el-card class="box-card">
+                                    <div slot="header" class="clearfix">
+                                        <span>模板标题</span>
+                                    </div>
+                                    <div v-for="o in 4" :key="o" class="text item">
+                                        key：{{'列表内容 ' + o }}
+                                    </div>
+                                </el-card>
+                            </div>
+                        </div>
+                    </el-aside>
+                    <el-main>
+                        <el-breadcrumb separator="/">
+                            <el-breadcrumb-item>操作</el-breadcrumb-item>
+                            <el-breadcrumb-item>模板编辑</el-breadcrumb-item>
+                        </el-breadcrumb>
+                        <el-form :inline="true" class="demo-form-inline" label-width="60px">
+                            <el-form-item label="key：">
+                                <el-input size="small" placeholder="请输入key" v-model="searchValue"></el-input>
+                            </el-form-item>
+                            <el-form-item label="value：">
+                                <el-input size="small" placeholder="请输入value" v-model="searchValue"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button size="small" type="primary" @click="getAuditList(auditCurrentPage)">添加
+                                </el-button>
+                            </el-form-item>
+                        </el-form>
+                        <el-button type="text" @click="dialogVisible = true">选择发送对象</el-button>
+                        <div>
+                            <el-button type="primary" @click="searchUser()">发送模板消息</el-button>
+                        </div>
+                    </el-main>
+                </el-container>
+            </template>
+        </el-tab-pane>
+        <el-tab-pane label="高级版" name="advancedEdition">
+            <template style="margin-top:10px">
+                <el-container>
+                    <el-aside width="300px">
+                        <div class="left-box">
+                            <div class="phone-header">
+                                <img src="images/phone.png" alt="">
+                                <h3>公众号名称</h3>
+                            </div>
+                            <div class="phone-main">
+                                <el-card class="box-card">
+                                    <div slot="header" class="clearfix">
+                                        <span>模板标题</span>
+                                    </div>
+                                    <div v-for="o in 4" :key="o" class="text item">
+                                        key：{{'列表内容 ' + o }}
+                                    </div>
+                                </el-card>
+                            </div>
+                        </div>
+                    </el-aside>
+                    <el-main>
+                        <el-breadcrumb separator="/">
+                            <el-breadcrumb-item>操作</el-breadcrumb-item>
+                            <el-breadcrumb-item>模板编辑</el-breadcrumb-item>
+                        </el-breadcrumb>
+                        <el-form :inline="true" class="demo-form-inline" label-width="60px">
+                            <el-form-item label="key：">
+                                <el-input size="small" placeholder="请输入key" v-model="searchValue"></el-input>
+                            </el-form-item>
+                            <el-form-item label="value：">
+                                <el-input size="small" placeholder="请输入value" v-model="searchValue"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button size="small" type="primary" @click="getAuditList(auditCurrentPage)">添加
+                                </el-button>
+                            </el-form-item>
+                        </el-form>
+                        <el-button type="text" @click="dialogVisible = true">选择发送对象</el-button>
+                        <div>
+                            <el-button type="primary" @click="searchUser()">发送模板消息</el-button>
+                        </div>
+                    </el-main>
+                </el-container>
+            </template>
+        </el-tab-pane>
+        <el-tab-pane label="VIP版" name="vipEdition">
+            <template style="margin-top:10px">
+                <el-container>
+                    <el-aside width="300px">
+                        <div class="left-box">
+                            <div class="phone-header">
+                                <img src="images/phone.png" alt="">
+                                <h3>公众号名称</h3>
+                            </div>
+                            <div class="phone-main">
+                                <el-card class="box-card">
+                                    <div slot="header" class="clearfix">
+                                        <span>模板标题</span>
+                                    </div>
+                                    <div v-for="o in 4" :key="o" class="text item">
+                                        key：{{'列表内容 ' + o }}
+                                    </div>
+                                </el-card>
+                            </div>
+                        </div>
+                    </el-aside>
+                    <el-main>
+                        <el-breadcrumb separator="/">
+                            <el-breadcrumb-item>操作</el-breadcrumb-item>
+                            <el-breadcrumb-item>模板编辑</el-breadcrumb-item>
+                        </el-breadcrumb>
+                        <el-form :inline="true" class="demo-form-inline" label-width="60px">
+                            <el-form-item label="key：">
+                                <el-input size="small" placeholder="请输入key" v-model="searchValue"></el-input>
+                            </el-form-item>
+                            <el-form-item label="value：">
+                                <el-input size="small" placeholder="请输入value" v-model="searchValue"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button size="small" type="primary" @click="getAuditList(auditCurrentPage)">添加
+                                </el-button>
+                            </el-form-item>
+                        </el-form>
+                        <el-button type="text" @click="vipDialog()">选择发送对象</el-button>
+                        <div>
+                            <el-button type="primary" @click="searchUser()">发送模板消息</el-button>
+                        </div>
+                    </el-main>
+                </el-container>
+            </template>
+        </el-tab-pane>
+    </el-tabs>
+
+    <!--选择用户弹窗-->
+    <el-dialog width="60%"
+               title="用户选择"
+               :visible.sync="dialogVisible"
+               :before-close="handleClose">
+        <el-form :inline="true" class="demo-form-inline" label-width="80px">
+            <el-form-item v-if="vipVisible" label="选择地区">
+                <el-select size="small" multiple v-model="userAddress" placeholder="请选择地区" @change="getUserAddress()">
+                    <el-option key="不限" label="不限" value="不限"></el-option>
+                    <el-option key="重庆" label="重庆" value="重庆"></el-option>
+                    <el-option key="北京" label="北京" value="北京"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item v-if="vipVisible" label="选择性别">
+                <el-select size="small" v-model="userSex" placeholder="请选择性别" @change="getUserSex()">
+                    <el-option key="不限" label="不限" value="不限"></el-option>
+                    <el-option key="男" label="男" value="男"></el-option>
+                    <el-option key="女" label="女" value="女"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="用户名">
+                <el-input size="small" placeholder="请输入用户名" v-model="searchValue"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button size="small" type="primary" @click="searchUser()">搜索</el-button>
+            </el-form-item>
+        </el-form>
+        <el-table :data="shareList" border style="width: 100%;text-align:center">
+            <el-table-column
+                    type="selection"
+                    width="55">
+            </el-table-column>
+            <el-table-column prop="USER_ADDRESS" label="地区"></el-table-column>
+            <el-table-column prop="USER_SCHOOL" label="学校"></el-table-column>
+            <el-table-column prop="USER_NAME" label="姓名"></el-table-column>
+        </el-table>
+        <el-pagination style="float:center" layout="prev, pager, next" :total="total"
+                       :current-page="shareCurrentPage" @current-change="getShareList">
+        </el-pagination>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" size="small" @click="dialogVisible = false">确 定</el-button>
+            <el-button type="danger" @click="dialogVisible = false" size="small">取 消</el-button>
+        </div>
+    </el-dialog>
+</div>
+</body>
+<!-- 先引入 Vue -->
+<script src="jslib/base_util.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<!-- <script src="jslib/vue.js"></script> -->
+<script src="jslib/mui.min.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!-- <script src="jslib/element.js"></script> -->
+<script src="index.js"></script>
+</html>
